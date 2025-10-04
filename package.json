@@ -1,0 +1,17 @@
+{
+  "name": "knowledge-scout",
+  "version": "0.1.0",
+  "scripts": {
+    "watch": "pnpm run -r watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jabedzaman/knowledge-sout.git"
+  },
+  "author": "hi@jabed.dev",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jabedzaman/knowledge-sout/issues"
+  },
+  "homepage": "https://github.com/jabedzaman/knowledge-sout#readme"
+}
