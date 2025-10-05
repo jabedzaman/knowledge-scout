@@ -7,7 +7,7 @@ export default defineConfig({
   clean: true,
   dts: true,
   entry: ["src/index.ts"],
-  format: ["esm"],
+  format: ["esm", "esm"],
   minify: IS_PROD,
   sourcemap: true,
   external: [/generated/],

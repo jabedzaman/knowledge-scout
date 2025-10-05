@@ -1,12 +1,13 @@
 {
   "name": "@knowledgescout/api",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
   "scripts": {
     "watch": "tsx watch src/index.ts",
     "build": "tsup"
   },
+  "files": [
+    "dist"
+  ],
   "keywords": [],
   "author": "",
   "license": "ISC",

@@ -1,0 +1,10 @@
+name: "knowledge-scout"
+
+services:
+  api:
+    build:
+      dockerfile: apps/api/Dockerfile
+    env_file:
+      - apps/api/.env
+    ports:
+      - "8000:8000"
