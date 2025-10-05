@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { ApiError, ValidationError } from "~/lib";
+import { ValidationError } from "~/lib";
 import { authMiddleware } from "~/middlewares";
 import { DocsService } from "~/services";
 import { AuthSession } from "~/types";

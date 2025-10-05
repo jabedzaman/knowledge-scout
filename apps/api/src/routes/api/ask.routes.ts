@@ -1,5 +1,4 @@
 import { Hono } from "hono";
-import mongoose from "mongoose";
 import { generateEmbeddings, mongo } from "~/lib";
 
 export const askRoutes = new Hono();
@@ -18,7 +17,7 @@ askRoutes.post("/", async (c) => {
         $vectorSearch: {
           index: "vector_index",
           path: "embedding",
-          queryVector: queryEmbedding[0], // ✅ Use first element (1D array)
+          queryVector: queryEmbedding[0], // Use first element (1D array)
           numCandidates: k * 10,
           limit: k,
         },
