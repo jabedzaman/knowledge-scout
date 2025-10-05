@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { env } from "~/config";
+import { MongoClient } from "mongodb";
 
 /**
  * @description Connects to the MongoDB database using Mongoose.
@@ -13,3 +14,5 @@ export const connectToMongo = async () => {
     process.exit(1);
   }
 };
+
+export const mongo = new MongoClient(env.MONGO_URI).db();

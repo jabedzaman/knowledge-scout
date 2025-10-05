@@ -54,7 +54,6 @@ const DocumentSchema = new Schema<IDocument>(
     },
     filePath: {
       type: String,
-      required: true,
     },
     status: {
       type: String,

@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/jabedzaman/knowledge-sout/issues"
   },
-  "homepage": "https://github.com/jabedzaman/knowledge-sout#readme"
+  "homepage": "https://github.com/jabedzaman/knowledge-sout#readme",
+  "devDependencies": {
+    "@types/node": "^24.6.2"
+  }
 }
