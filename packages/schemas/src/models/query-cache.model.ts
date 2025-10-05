@@ -1,6 +1,5 @@
 import { model, Schema } from "mongoose";
 import { IQueryCache } from "~/interfaces";
-import { toJSON } from "./plugins";
 
 /**
  * Mongoose schema for the QueryCache model.
@@ -53,8 +52,5 @@ const QueryCacheSchema = new Schema<IQueryCache>(
     timestamps: false, // Automatically manage createdAt and updatedAt fields
   }
 );
-
-// Plugins
-QueryCacheSchema.plugin(toJSON);
 
 export const QueryCache = model<IQueryCache>("QueryCache", QueryCacheSchema);

@@ -6,8 +6,8 @@ export const userRoutes = new Hono<AuthSession>();
 
 userRoutes.use("*", authMiddleware);
 
-// GET /api/user/me - Get the authenticated user's details
-userRoutes.get("/me", (c) => {
+// GET /api/user - Get the authenticated user's details
+userRoutes.get("/", (c) => {
   const user = c.get("user");
   return c.json({ user });
 });

@@ -3,6 +3,8 @@ import { Types } from "mongoose";
 import { ApiError, generateEmbeddings } from "~/lib";
 import { parseDocument } from "~/lib/parser";
 import { ListDocumentQuery } from "~/validators";
+import * as fs from "node:fs";
+import * as path from "node:path";
 
 export class DocsService {
   listDocuments = async (userId: string, query: ListDocumentQuery) => {
@@ -37,7 +39,7 @@ export class DocsService {
 
   uploadDocument = async (file: File, userId: string) => {
     // parse document (PDF)
-    const { pages, text } = await parseDocument(file);
+    const { pages } = await parseDocument(file);
 
     // store document metadata
     const documentDoc = await Document.create({
@@ -47,8 +49,16 @@ export class DocsService {
       totalPages: pages.length,
       fileSize: file.size,
       mimeType: file.type,
-      isPrivate: false,
     });
+
+    const filePath = await this.saveFile(
+      file,
+      userId,
+      documentDoc._id.toString()
+    );
+
+    documentDoc.filePath = filePath;
+    await documentDoc.save();
 
     const chunks: {
       docId: Types.ObjectId;
@@ -94,5 +104,20 @@ export class DocsService {
       chunks.push(text.slice(i, i + chunkSize));
     }
     return chunks;
+  };
+
+  saveFile = async (file: File, userId: string, fileId: string) => {
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+    const uploadDir = path.join(process.cwd(), "uploads", userId);
+    if (!fs.existsSync(uploadDir)) {
+      fs.mkdirSync(uploadDir, { recursive: true });
+    }
+    const filePath = path.join(
+      uploadDir,
+      `${fileId || Date.now()}_${file.name}`
+    );
+    fs.writeFileSync(filePath, buffer);
+    return filePath;
   };
 }

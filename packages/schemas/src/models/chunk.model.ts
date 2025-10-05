@@ -1,6 +1,5 @@
 import { Schema } from "mongoose";
 import { IChunk } from "~/interfaces";
-import { toJSON } from "./plugins";
 import { model } from "mongoose";
 
 /**
@@ -57,8 +56,5 @@ const ChunkSchema = new Schema<IChunk>(
 // Compound indexes for efficient queries
 ChunkSchema.index({ docId: 1, pageNumber: 1 });
 ChunkSchema.index({ docId: 1, chunkIndex: 1 });
-
-// Plugins
-ChunkSchema.plugin(toJSON);
 
 export const Chunk = model<IChunk>("Chunk", ChunkSchema);

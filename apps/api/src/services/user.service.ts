@@ -5,7 +5,9 @@ export class UserService {
   // generate a new user
   async createUser() {
     const user = new User();
-    user.apiKey = await this.generateApiKey(user._id.toString());
+    const apiKey = await this.generateApiKey(user._id.toString());
+    user.apiKey = apiKey;
+    user.shareToken = `share_${apiKey}`;
     await user.save();
     return user;
   }

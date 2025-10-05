@@ -1,12 +1,10 @@
-const LIMIT = 10;
-const OFFSET = 0;
+import { API_KEY, BASE_URL, LIMIT, OFFSET } from "./CONSTS";
 
-fetch(`http://localhost:8000/api/docs?limit=${LIMIT}&offset=${OFFSET}`, {
+fetch(`${BASE_URL}/docs?limit=${LIMIT}&offset=${OFFSET}`, {
   method: "GET",
   headers: {
     "Content-Type": "application/json",
-    "x-api-key":
-      "2eabca851c731a41adbc9c3adbc599d2c2a5aadec866786926e608c3498a150468e229d5a970210cbcf05449",
+    "x-api-key": API_KEY,
   },
 })
   .then((response) => response.json())

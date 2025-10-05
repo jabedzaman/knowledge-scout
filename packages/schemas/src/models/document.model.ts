@@ -1,7 +1,5 @@
 import { model, Model, Schema } from "mongoose";
 import { IDocument } from "~/interfaces";
-import { paginate, toJSON } from "./plugins";
-import { FilterAndOptions, PaginatedDefaultResult } from "~/types";
 
 /**
  * Mongoose schema for the Document model.
@@ -26,17 +24,6 @@ const DocumentSchema = new Schema<IDocument>(
     uploadedAt: {
       type: Date,
       default: Date.now,
-    },
-    isPrivate: {
-      type: Boolean,
-      default: true,
-      index: true,
-    },
-    shareToken: {
-      type: String,
-      unique: true,
-      sparse: true,
-      index: true,
     },
     totalPages: {
       type: Number,
@@ -64,12 +51,6 @@ const DocumentSchema = new Schema<IDocument>(
     indexedAt: {
       type: Date,
     },
-    metadata: {
-      author: String,
-      title: String,
-      subject: String,
-      keywords: [String],
-    },
   },
   {
     timestamps: true, // Automatically manage createdAt and updatedAt fields
@@ -78,17 +59,5 @@ const DocumentSchema = new Schema<IDocument>(
 
 // Compound indexes for access control queries
 DocumentSchema.index({ userId: 1, status: 1 });
-DocumentSchema.index({ isPrivate: 1, status: 1 });
 
-// Plugins
-DocumentSchema.plugin(toJSON);
-DocumentSchema.plugin(paginate);
-
-type DocumentModel = Model<IDocument> & {
-  paginate(props: FilterAndOptions): Promise<PaginatedDefaultResult<IDocument>>;
-};
-
-export const Document = model<IDocument, DocumentModel>(
-  "Document",
-  DocumentSchema
-);
+export const Document = model<IDocument>("Document", DocumentSchema);

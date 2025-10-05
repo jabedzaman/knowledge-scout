@@ -62,7 +62,7 @@ docsRoutes.post("/", async (c) => {
   const userId = c.get("user")?._id;
 
   if (typeof file === "string") {
-    throw new ApiError(400, "NO_FILE_UPLOADED", "No file uploaded");
+    throw new ValidationError("invalid_type", "File is required", "file");
   }
 
   const result = await docsService.uploadDocument(file, userId!);

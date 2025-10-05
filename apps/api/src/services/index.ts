@@ -1,3 +1,3 @@
 export * from "./user.service";
-export * from "./docs.service";
+export * from "./document.service";
 export * from "./index.service";
