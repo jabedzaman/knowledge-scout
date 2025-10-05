@@ -1,10 +1,10 @@
-import { API_KEY, BASE_URL, LIMIT, OFFSET } from "./CONSTS";
+import { EMAIL, BASE_URL, LIMIT, OFFSET, PASSWORD } from "./CONSTS";
 
 fetch(`${BASE_URL}/docs?limit=${LIMIT}&offset=${OFFSET}`, {
   method: "GET",
   headers: {
     "Content-Type": "application/json",
-    "x-api-key": API_KEY,
+    "x-authorization": `Basic ${btoa(`${EMAIL}:${PASSWORD}`)}`,
   },
 })
   .then((response) => response.json())

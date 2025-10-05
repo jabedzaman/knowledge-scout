@@ -1,15 +1,20 @@
 import { User } from "@knowledgescout/schemas";
 import * as crypto from "node:crypto";
+import { CreateUserInput } from "~/validators";
 
 export class UserService {
   // generate a new user
-  async createUser() {
-    const user = new User();
+  async createUser(payload: CreateUserInput) {
+    const { email, password } = payload;
+    const user = new User({ email, password });
     const apiKey = await this.generateApiKey(user._id.toString());
-    user.apiKey = apiKey;
     user.shareToken = `share_${apiKey}`;
     await user.save();
-    return user;
+    return {
+      shareToken: user.shareToken,
+      id: user._id.toString(),
+      email: user.email,
+    };
   }
 
   // generate a new api key for a user with the given userId

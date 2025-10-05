@@ -16,5 +16,4 @@ export interface IQueryCache extends Document {
     }>;
   };
   createdAt: Date;
-  expireAt: Date; // TTL field
 }

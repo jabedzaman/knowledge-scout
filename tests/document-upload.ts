@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { API_KEY, BASE_URL } from "./CONSTS";
+import { EMAIL, PASSWORD, BASE_URL } from "./CONSTS";
 
 const filePath = path.join(process.cwd(), "test-document.pdf");
 
@@ -15,7 +15,9 @@ form.append(
 fetch(`${BASE_URL}/docs`, {
   method: "POST",
   body: form,
-  headers: { "x-api-key": API_KEY },
+  headers: {
+    "x-authorization": `Basic ${btoa(`${EMAIL}:${PASSWORD}`)}`,
+  },
 })
   .then((res) => res.json())
   .then((json) => {

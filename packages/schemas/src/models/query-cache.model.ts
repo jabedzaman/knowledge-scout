@@ -42,15 +42,13 @@ const QueryCacheSchema = new Schema<IQueryCache>(
       type: Date,
       default: Date.now,
     },
-    expireAt: {
-      type: Date,
-      default: () => new Date(Date.now() + 60000), // 60 seconds from now
-      index: { expires: 0 }, // TTL index - expires at the expireAt date
-    },
   },
   {
     timestamps: false, // Automatically manage createdAt and updatedAt fields
   }
 );
+
+// auto delete ttl after 60s
+QueryCacheSchema.index({ createdAt: 1 }, { expireAfterSeconds: 60 });
 
 export const QueryCache = model<IQueryCache>("QueryCache", QueryCacheSchema);

@@ -1,13 +1,16 @@
-const API_KEY =
-  "924361b65f0d6fbdd858cf31817119abe7b7b75f15f567f87924c884f89900ad68e24d1fb063d713196ba56a";
+import { BASE_URL, EMAIL, PASSWORD } from "./CONSTS";
 
-fetch("http://localhost:8000/api/user", {
+fetch(`${BASE_URL}/user`, {
   method: "GET",
   headers: {
     "Content-Type": "application/json",
-    "x-api-key": API_KEY,
+    "x-authorization": `Basic ${btoa(`${EMAIL}:${PASSWORD}`)}`,
   },
 })
   .then((response) => response.json())
-  .then((data) => console.log(data))
-  .catch((error) => console.error("Error:", error));
+  .then((data) => {
+    console.log("User data:", data);
+  })
+  .catch((error) => {
+    console.error("Error fetching user data:", error);
+  });

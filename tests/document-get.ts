@@ -1,10 +1,10 @@
-import { API_KEY, BASE_URL, DOCUMENT_ID } from "./CONSTS";
+import { EMAIL, PASSWORD, BASE_URL, DOCUMENT_ID, SHARE_TOKEN } from "./CONSTS";
 
 fetch(`${BASE_URL}/docs/${DOCUMENT_ID}`, {
   method: "GET",
   headers: {
     "Content-Type": "application/json",
-    "x-api-key": API_KEY,
+    "x-authorization": `Basic ${btoa(`${EMAIL}:${PASSWORD}`)}`,
   },
 })
   .then((response) => response.json())
@@ -15,7 +15,7 @@ fetch(`${BASE_URL}/docs/${DOCUMENT_ID}`, {
   method: "GET",
   headers: {
     "Content-Type": "application/json",
-    "x-share-token": `share_${API_KEY}`,
+    "x-share-token": SHARE_TOKEN,
   },
 })
   .then((response) => response.json())

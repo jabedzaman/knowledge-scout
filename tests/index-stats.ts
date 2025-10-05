@@ -1,10 +1,10 @@
-import { BASE_URL, API_KEY } from "./CONSTS";
+import { BASE_URL, EMAIL, PASSWORD } from "./CONSTS";
 
 fetch(`${BASE_URL}/index/stats`, {
   method: "GET",
   headers: {
     "Content-Type": "application/json",
-    "x-api-key": API_KEY,
+    "x-authorization": `Basic ${btoa(`${EMAIL}:${PASSWORD}`)}`,
   },
 })
   .then((response) => response.json())
