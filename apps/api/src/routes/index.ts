@@ -1,6 +1,10 @@
 import { Hono } from "hono";
-import { v1Routes } from "./v1";
+import { apiRoutes } from "./api";
 
+/**
+ * Main application routes
+ */
 export const routes = new Hono();
 
-routes.route("/", v1Routes);
+// Mount API routes at /api
+routes.route("/api", apiRoutes);

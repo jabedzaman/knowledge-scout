@@ -41,6 +41,9 @@ importers:
       pdf-parse:
         specifier: ^2.1.7
         version: 2.1.7
+      zod:
+        specifier: ^4.1.11
+        version: 4.1.11
     devDependencies:
       '@types/node':
         specifier: ^24.6.2
@@ -1723,6 +1726,9 @@ packages:
     resolution: {integrity: sha512-YgvUTfwqyc7UXVMrB+SImsVYSmTS8X/tSrtdNZMImM+n7+QTriRXyXim0mBrTXNeqzVF0KWGgHPeiyViFFrNDw==}
     engines: {node: '>=18'}
 
+  zod@4.1.11:
+    resolution: {integrity: sha512-WPsqwxITS2tzx1bzhIKsEs19ABD5vmCVa4xBo2tq/SrV4RNZtfws1EnCWQXM6yh8bD08a1idvkB5MZSBiZsjwg==}
+
 snapshots:
 
   '@alloc/quick-lru@5.2.0': {}
@@ -3140,3 +3146,5 @@ snapshots:
   wrappy@1.0.2: {}
 
   yallist@5.0.0: {}
+
+  zod@4.1.11: {}

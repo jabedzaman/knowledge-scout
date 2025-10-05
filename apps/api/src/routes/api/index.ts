@@ -4,9 +4,9 @@ import { userRoutes } from "./user.routes";
 import { docsRoutes } from "./docs.routes";
 import { askRoutes } from "./ask.routes";
 
-export const v1Routes = new Hono();
+export const apiRoutes = new Hono();
 
-v1Routes.route("/auth", authRoutes);
-v1Routes.route("/user", userRoutes);
-v1Routes.route("/docs", docsRoutes);
-v1Routes.route("/ask", askRoutes);
+apiRoutes.route("/ask", askRoutes);
+apiRoutes.route("/auth", authRoutes);
+apiRoutes.route("/docs", docsRoutes);
+apiRoutes.route("/user", userRoutes);
