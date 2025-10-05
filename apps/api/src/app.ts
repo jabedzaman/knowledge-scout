@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
+import { routes } from "./routes";
 
 /**
  * The main application instance.
@@ -12,4 +13,4 @@ app.use(cors({ origin: "*" }));
 app.use("*", logger());
 
 // routes
-app.get("/", (c) => c.json({ message: "Hello, Knowledge Scout!" }));
+app.route("/", routes);
