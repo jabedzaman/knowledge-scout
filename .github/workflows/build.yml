@@ -39,11 +39,9 @@ jobs:
         with:
           images: ghcr.io/${{ env.IMAGE_NAME }}
           tags: |
-            type=ref,event=branch,suffix=-arm64
-            type=ref,event=pr,suffix=-arm64
-            type=sha,prefix={{branch}}-,suffix=-arm64
-            type=raw,value=latest-arm64,enable={{is_default_branch}}
-            type=raw,value=arm64
+            type=ref,event=branch
+            type=sha,prefix={{branch}}-
+            type=raw,value=latest,enable={{is_default_branch}}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
@@ -52,7 +50,7 @@ jobs:
           file: ./apps/api/Dockerfile
           platforms: linux/arm64
           push: true
-          tags: "latest"
+          tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
