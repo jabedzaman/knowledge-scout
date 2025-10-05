@@ -16,6 +16,9 @@ importers:
       '@knowledgescout/schemas':
         specifier: workspace:^
         version: link:../../packages/schemas
+      dotenv:
+        specifier: ^17.2.3
+        version: 17.2.3
       envalid:
         specifier: ^8.1.0
         version: 8.1.0
