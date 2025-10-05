@@ -2,11 +2,15 @@ import { Hono } from "hono";
 import { apiRoutes } from "./api";
 import { ApiError } from "~/lib";
 import { rateLimiter } from "~/middlewares";
+import { pagesRoutes } from "./pages";
 
 /**
  * Main application routes
  */
 export const routes = new Hono();
+
+// html pages
+routes.route("/", pagesRoutes);
 
 // rate limiting middleware
 routes.use("/api", rateLimiter);

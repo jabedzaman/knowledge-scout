@@ -73,6 +73,12 @@ Rate limiting is implemented to allow a maximum of 60 requests per minute per us
 - `GET /api/_meta` - Meta information about the API
 - `GET /.well-known/hackathon.json` - Hackathon project metadata
 
+---
+
+- GET `/ask` html form for quick testing to ask
+- GET `/docs` html form for quick listing docs
+- GET `/admin` html form for user & doc count
+
 ### Testing the Application
 
 Test code has been added in the `tests` folder. You can run the tests using:
