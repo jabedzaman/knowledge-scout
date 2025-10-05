@@ -4,6 +4,49 @@ import { Hono } from "hono";
 export const pages = new Hono();
 export const pagesRoutes = pages;
 
+pages.get("/info", (c) => {
+  return c.html(`
+    <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Info</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6">Info</h1>
+        <div class="space-y-4">
+            <div>
+                <h2 class="text-xl font-semibold mb-2">API Endpoints</h2>
+                <ul class="list-disc list-inside">
+                    <li><a href="/docs" class="text-blue-500 hover:underline">GET /docs</a> - Fetch documents (requires authentication)</li>
+                    <li><a href="/ask" class="text-blue-500 hover:underline">GET /ask</a> - Ask questions about documents (requires authentication)</li>
+                    <li><a href="/admin" class="text-blue-500 hover:underline">GET /admin</a> - Admin dashboard</li>
+                    <li><a href="https://github.com/jabedzaman/knowledge-scout" class="text-blue-500 hover:underline" target="_blank">GitHub Repository</a></li>
+                </ul>
+            </div>
+            <div>
+                <h2 class="text-xl font-semibold mb-2">Authentication</h2>
+                <p>Use Basic Auth with your email and password. Include the header:</p>
+                <pre class="bg-gray-100 p-2 rounded">x-authorization: Basic &lt;base64-encoded-email:password&gt;</pre>
+            </div>
+            <div>
+                <h2 class="text-xl font-semibold mb-2">Default Admin User</h2>
+                <p>You can use the following default admin user to get started:</p>
+                <ul class="list-disc list-inside">
+                    <li>Email: <code>admin@mail.com</code></li>
+                    <li>Password: <code>admin123</code></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+`);
+});
+
 pages.get("/docs", (c) => {
   return c.html(`
 <!DOCTYPE html>
