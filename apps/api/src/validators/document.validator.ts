@@ -19,3 +19,9 @@ export const listDocumentQuery = z.object({
 });
 
 export type ListDocumentQuery = z.infer<typeof listDocumentQuery>;
+
+export const getDocumentParams = z.object({
+  id: z.string().min(1, { message: "Document ID is required" }),
+});
+
+export type GetDocumentParams = z.infer<typeof getDocumentParams>;

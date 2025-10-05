@@ -1,6 +1,6 @@
 import { Chunk, Document } from "@knowledgescout/schemas";
 import { Types } from "mongoose";
-import { generateEmbeddings } from "~/lib";
+import { ApiError, generateEmbeddings } from "~/lib";
 import { parseDocument } from "~/lib/parser";
 import { ListDocumentQuery } from "~/validators";
 
@@ -23,6 +23,16 @@ export class DocsService {
       offset,
       totalPages: Math.ceil(total / limit),
     };
+  };
+
+  getDocumentById = async (docId: string, userId?: string) => {
+    const document = await Document.findOne({
+      _id: docId,
+    }).lean();
+    if (!document) {
+      throw new ApiError(404, "DOCUMENT_NOT_FOUND", "Document not found");
+    }
+    return document;
   };
 
   uploadDocument = async (file: File, userId: string) => {

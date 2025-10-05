@@ -3,12 +3,36 @@ import { ApiError, ValidationError } from "~/lib";
 import { authMiddleware } from "~/middlewares";
 import { DocsService } from "~/services";
 import { AuthSession } from "~/types";
-import { listDocumentQuery } from "~/validators";
+import { getDocumentParams, listDocumentQuery } from "~/validators";
 
 export const docsRoutes = new Hono<AuthSession>();
 const docsService = new DocsService();
 
 docsRoutes.use("*", authMiddleware);
+
+// GET /api/docs/:id - Get document by ID
+docsRoutes.get("/:id", async (c) => {
+  const params = c.req.param();
+  const userId = c.get("user")?._id;
+
+  const { success, data, error } = await getDocumentParams.safeParseAsync(
+    params
+  );
+
+  if (!success) {
+    throw new ValidationError(
+      error.issues[0].code,
+      error.issues[0].message,
+      error.issues[0].path[0] as string
+    );
+  }
+
+  const { id } = data;
+
+  const result = await docsService.getDocumentById(id, userId!);
+
+  return c.json({ result });
+});
 
 // GET /api/docs - List documents
 docsRoutes.get("/", async (c) => {
