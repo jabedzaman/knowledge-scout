@@ -2,21 +2,25 @@ import { EMAIL, PASSWORD, BASE_URL, SHARE_TOKEN } from "./CONSTS";
 
 const query = "knowledge?";
 
-fetch(`${BASE_URL}/ask`, {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    "x-authorization": `Basic ${btoa(`${EMAIL}:${PASSWORD}`)}`,
-  },
-  body: JSON.stringify({ query, k: 3 }),
-})
-  .then((res) => res.json())
-  .then((data) => {
-    console.log("response with api key:", JSON.stringify(data, null, 2));
+export const ask = () => {
+  fetch(`${BASE_URL}/ask`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-authorization": `Basic ${btoa(`${EMAIL}:${PASSWORD}`)}`,
+    },
+    body: JSON.stringify({ query, k: 3 }),
   })
-  .catch((err) => {
-    console.error("Error:", err);
-  });
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("response with api key:", JSON.stringify(data, null, 2));
+    })
+    .catch((err) => {
+      console.error("Error:", err);
+    });
+};
+
+ask();
 
 // fetch(`${BASE_URL}/ask`, {
 //   method: "POST",

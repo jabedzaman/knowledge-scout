@@ -1,0 +1,56 @@
+import { createMiddleware } from "hono/factory";
+import { ApiError } from "~/lib";
+
+interface RateLimitStore {
+  [key: string]: {
+    count: number;
+    resetTime: number;
+  };
+}
+
+const store: RateLimitStore = {};
+
+// Cleanup old entries every minute
+setInterval(() => {
+  const now = Date.now();
+  Object.keys(store).forEach((key) => {
+    if (store[key].resetTime < now) {
+      delete store[key];
+    }
+  });
+}, 60000);
+
+export const rateLimiter = createMiddleware(async (c, next) => {
+  const user = c.get("user") as { _id: string } | undefined;
+  const key = `rate_limit:${user?._id}`;
+  const now = Date.now();
+  const windowMs = 60000; // 1 minute
+  const limit = 60; // 60 requests per minute
+
+  if (!store[key] || store[key].resetTime < now) {
+    store[key] = {
+      count: 0,
+      resetTime: now + windowMs,
+    };
+  }
+
+  store[key].count++;
+
+  // Set rate limit headers
+  c.header("X-RateLimit-Limit", limit.toString());
+  c.header(
+    "X-RateLimit-Remaining",
+    Math.max(0, limit - store[key].count).toString()
+  );
+  c.header("X-RateLimit-Reset", new Date(store[key].resetTime).toISOString());
+
+  if (store[key].count > limit) {
+    throw new ApiError(
+      429,
+      "RATE_LIMIT",
+      "Too many requests, please try again later."
+    );
+  }
+
+  await next();
+});

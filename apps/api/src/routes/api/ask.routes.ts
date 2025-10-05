@@ -1,11 +1,14 @@
 import { Hono } from "hono";
 import { ValidationError } from "~/lib";
+import { authMiddleware } from "~/middlewares";
 import { AskService } from "~/services";
 import { AuthSession } from "~/types";
 import { askSchema } from "~/validators";
 
 export const askRoutes = new Hono<AuthSession>();
 const askService = new AskService();
+
+askRoutes.use("*", authMiddleware);
 
 // GET /api/ask - ask a question
 askRoutes.post("/", async (c) => {
