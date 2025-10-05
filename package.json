@@ -2,7 +2,9 @@
   "name": "knowledge-scout",
   "version": "0.1.0",
   "scripts": {
-    "watch": "pnpm run -r watch"
+    "watch": "pnpm run -r watch",
+    "build:packages": "pnpm --filter @knowledgescout/schemas build",
+    "build": "pnpm run build:packages && pnpm --filter @knowledgescout/api build && pnpm --filter @knowledgescout/www build"
   },
   "repository": {
     "type": "git",

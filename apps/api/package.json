@@ -13,8 +13,10 @@
   "packageManager": "pnpm@10.17.0",
   "dependencies": {
     "@hono/node-server": "^1.19.5",
+    "@knowledgescout/schemas": "workspace:^",
     "envalid": "^8.1.0",
-    "hono": "^4.9.9"
+    "hono": "^4.9.9",
+    "mongoose": "^8.19.0"
   },
   "devDependencies": {
     "@types/node": "^24.6.2",
